@@ -1,6 +1,18 @@
 const express = require('express');
 require('dotenv').config();
 const routes = require('./routes/index.js');
+const mongoose = require('mongoose');
+
+const checkConnection = async () =>{
+    try {
+        const conn = await mongoose.connect(process.env.DB_URL);
+        console.log("Database connected successfully...")
+    }catch(err) {
+        console.log(err);
+    }
+}
+
+checkConnection();
 
 const app = express();
 
