@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-crud-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Domeshow/Nodejs-CRUD-API.git"
+  },
+  "author": "Domeshow",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Domeshow/Nodejs-CRUD-API/issues"
+  },
+  "homepage": "https://github.com/Domeshow/Nodejs-CRUD-API#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  }
+}
