@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const bodyParser = require('body-parser');
 const routes = require('./routes/index.js');
 const mongoose = require('mongoose');
 
@@ -15,6 +16,10 @@ const checkConnection = async () =>{
 checkConnection();
 
 const app = express();
+// Parse application json
+app.use(bodyParser.json());
+// Parse application application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/api', routes);
 app.get('/', (req, res)=>{

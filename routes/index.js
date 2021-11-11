@@ -16,11 +16,22 @@ router.get('/:id', (req, res)=>{
     })
 })
 
-router.post('/', (req, res)=>{
-    res.status(200).send({ 
-        status: 200, 
-        message: 'Course created' 
-    })
+router.post('/', async (req, res)=>{
+    try{
+        const course = await Course.create({
+            ...req.body
+        })
+        res.status(200).json({ 
+            status: 200, 
+            course: course 
+        })
+    } catch(error) {
+        console.log(error)
+        res.status(500).json({
+            status: 500,
+            error: error.errors
+        })
+    }
 })
 
 router.put('/:id', (req, res)=>{
