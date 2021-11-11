@@ -1,10 +1,19 @@
 const mongoose = require("mongoose");
 
 const courseSchema = mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     description: String,
-    available: Boolean,
-    created_at: Date
+    available: {
+        type: Boolean,
+        default: true
+    },
+    created_at: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 module.exports = mongoose.model('course', courseSchema);
