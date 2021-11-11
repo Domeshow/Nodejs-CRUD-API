@@ -61,11 +61,34 @@ router.post('/', async (req, res)=>{
     }
 })
 
-router.put('/:id', (req, res)=>{
-    res.status(200).send({ 
-        status: 200, 
-        message: 'Course updated' 
-    })
+router.put('/:id', async (req, res)=>{
+    try{
+        const course = await Course.findOne({_id: req.params.id});
+        if(course)
+        {
+            await course.updateOne({
+                name: req.body.name,
+                available: req.body.available
+            },{_id: req.params.id});
+
+            return res.status(200).send({ 
+                status: 200, 
+                message: "Course updated successfully!" 
+            })
+        }else{
+            res.status(400).send({ 
+                status: 400, 
+                message: `Course "${req.params.id}" not found` 
+            })
+        }
+        
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({
+            status: 500,
+            error: err.message
+        })
+    }
 })
 
 router.delete('/:id', (req, res)=>{
