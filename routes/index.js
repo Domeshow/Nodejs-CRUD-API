@@ -2,11 +2,20 @@ const express = require('express');
 const router = express.Router();
 const Course = require('../models/Course')
 
-router.get('/', (req, res)=>{
-    res.status(200).send({ 
-        status: 200, 
-        message: 'List all courses' 
-    })
+router.get('/', async (req, res)=>{
+    try{
+        const courses = await Course.find();
+        res.status(200).send({ 
+            status: 200, 
+            courses: courses 
+        })
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({
+            status: 500,
+            error: err.errors
+        })
+    }
 })
 
 router.get('/:id', (req, res)=>{
