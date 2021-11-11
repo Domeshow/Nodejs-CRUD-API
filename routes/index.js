@@ -18,11 +18,29 @@ router.get('/', async (req, res)=>{
     }
 })
 
-router.get('/:id', (req, res)=>{
-    res.status(200).send({ 
-        status: 200, 
-        message: 'Get a specific course' 
-    })
+router.get('/:id', async (req, res)=>{
+    try{
+        const course = await Course.findOne({_id: req.params.id});
+        if(course)
+        {
+            return res.status(200).send({ 
+                status: 200, 
+                courses: course 
+            })
+        }else{
+            res.status(400).send({ 
+                status: 400, 
+                message: `Course "${req.params.id}" not found` 
+            })
+        }
+        
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({
+            status: 500,
+            error: err.errors
+        })
+    }
 })
 
 router.post('/', async (req, res)=>{
