@@ -91,11 +91,31 @@ router.put('/:id', async (req, res)=>{
     }
 })
 
-router.delete('/:id', (req, res)=>{
-    res.status(200).send({ 
-        status: 200, 
-        message: 'Course deleted' 
-    })
+router.delete('/:id', async (req, res)=>{
+    try{
+        const course = await Course.findOne({_id: req.params.id});
+        if(course)
+        {
+            await course.remove();
+
+            return res.status(200).send({ 
+                status: 200, 
+                message: "Course successfully removed!" 
+            })
+        }else{
+            res.status(400).send({ 
+                status: 400, 
+                message: `Course "${req.params.id}" not found` 
+            })
+        }
+        
+    } catch(err) {
+        console.log(err)
+        res.status(500).json({
+            status: 500,
+            error: err.message
+        })
+    }
 })
 
 module.exports = router;
