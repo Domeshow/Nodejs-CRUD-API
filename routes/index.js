@@ -68,6 +68,7 @@ router.put('/:id', async (req, res)=>{
         {
             await course.updateOne({
                 name: req.body.name,
+                description: req.body.description,
                 available: req.body.available
             },{_id: req.params.id});
 
